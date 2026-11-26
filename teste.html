@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teste Elfsight</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;padding:16px;background:#fff;color:#111}
+h1{font-size:18px;margin:0 0 12px}
+#st{padding:12px;border-radius:8px;background:#f1f1f1;font-size:15px;line-height:1.5;margin-bottom:16px}
+.ok{background:#d9f7e0!important}.err{background:#ffe0e0!important}
+</style>
+</head>
+<body>
+<h1>Teste do widget Elfsight</h1>
+<div id="st">Carregando...</div>
+
+<!-- Elfsight Instagram Feed (código original do painel) -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-ce05134f-1245-4108-82ea-55e911bd2694" data-elfsight-app-lazy></div>
+
+<script>
+var st=document.getElementById("st"),s=document.querySelector('script[src*="elfsightcdn"]'),loaded=false;
+s.addEventListener("load",function(){loaded=true});
+s.addEventListener("error",function(){st.className="err";st.textContent="1) O script do Elfsight foi BLOQUEADO ou não carregou (internet, bloqueador de anúncios ou rede)."});
+setTimeout(function(){
+  var w=document.querySelector('[class*="elfsight-app-"]');
+  var has=w&&w.childElementCount>0;
+  if(has){st.className="ok";st.textContent="OK: o widget apareceu. O problema está no site principal, não no Elfsight."}
+  else if(loaded){st.className="err";st.textContent="2) O script carregou, mas o widget veio VAZIO. O problema está no painel do Elfsight (widget não publicado, perfil não conectado ou limite do plano)."}
+  else if(st.className!=="err"){st.className="err";st.textContent="3) O script ainda não carregou. Atualize a página e espere mais um pouco."}
+},8000);
+</script>
+</body>
+</html>
